@@ -4,8 +4,6 @@ import java.util.Scanner;
 class TransitCalculator {
     int numberOfDaysUsingTransitSystem;
     int numberOfIndividualRides;
-    int age;
-    String disabilities;
 
     private final static DecimalFormat df = new DecimalFormat("0.00");
 
@@ -13,15 +11,11 @@ class TransitCalculator {
     double unlimitedRides7Days = 33.00;
     double unlimitedRides30Days = 127.00;
 
-    public TransitCalculator(int numberOfDaysUsingTransitSystem, int numberOfIndividualRides, int age, String disabilities) {
+    public TransitCalculator(int numberOfDaysUsingTransitSystem, int numberOfIndividualRides, int age, boolean disabilities) {
         this.numberOfDaysUsingTransitSystem = numberOfDaysUsingTransitSystem;
         this.numberOfIndividualRides = numberOfIndividualRides;
-        this.age = age;
-        this.disabilities = disabilities;
-    }
 
-    public void reducedFare() {
-        if (age >= 65 || disabilities.equalsIgnoreCase("yes")) {
+        if (age >= 65 || disabilities) {
             payPerRide = 1.35;
             unlimitedRides7Days = 16.50;
             unlimitedRides30Days = 63.50;
@@ -64,9 +58,9 @@ class TransitCalculator {
         int amountOfTickets = 0;
         String ticketName = "";
 
-        for (int index = 1; index < prices.length; index++) {
-            if (prices[index] <= lowestPrice) {
-                lowestPrice = prices[index];
+        for (double price : prices) {
+            if (price <= lowestPrice) {
+                lowestPrice = price;
             }
         }
 
@@ -91,9 +85,12 @@ class TransitCalculator {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TransitCalculator transitCalculator = new TransitCalculator(scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), scanner.next());
+        int numberOfDaysUsingTransitSystem = scanner.nextInt();
+        int numberOfIndividualRides = scanner.nextInt();
+        int age = scanner.nextInt();
+        boolean disabilities = scanner.next().equalsIgnoreCase("yes");
 
-        transitCalculator.reducedFare();
+        TransitCalculator transitCalculator = new TransitCalculator(numberOfDaysUsingTransitSystem, numberOfIndividualRides, age, disabilities);
 
         if (transitCalculator.numberOfDaysUsingTransitSystem > 30) {
             System.out.println("This is not possible. Please select amount of days with a max of 30 days.");
