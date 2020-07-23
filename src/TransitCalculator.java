@@ -2,8 +2,13 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 class TransitCalculator {
-    int numberOfDaysUsingTransitSystem, numberOfIndividualRides;
-    double payPerRide = 2.75, unlimitedRides7Days = 33.00, unlimitedRides30Days = 127.00, amountOfTickets;
+    int numberOfDaysUsingTransitSystem;
+    int numberOfIndividualRides;
+    int amountOfTickets;
+
+    double payPerRide = 2.75;
+    double unlimitedRides7Days = 33.00;
+    double unlimitedRides30Days = 127.00;
 
     private final static DecimalFormat df = new DecimalFormat("0.00");
 
@@ -19,7 +24,7 @@ class TransitCalculator {
     }
 
     public double unlimited7PricePerRide() {
-        amountOfTickets = Math.ceil(numberOfDaysUsingTransitSystem / 7.0);
+        amountOfTickets = (int) Math.ceil(numberOfDaysUsingTransitSystem / 7.0);
         return (unlimitedRides7Days * amountOfTickets) / numberOfIndividualRides;
     }
 
